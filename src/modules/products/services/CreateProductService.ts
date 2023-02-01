@@ -9,12 +9,7 @@ interface IRequest {
   total: number;
 }
 export default class CreateProductService {
-  public async execute({
-    name,
-    price,
-    quantity,
-    total,
-  }: IRequest): Promise<Product> {
+  public async execute({ name, price, quantity }: IRequest): Promise<Product> {
     const productsRepository = getCustomRepository(ProductRepository);
 
     const productExist = await productsRepository.findByName(name);
@@ -22,6 +17,7 @@ export default class CreateProductService {
     if (productExist) {
       throw new AppError('There is already one product with this name');
     }
+    let total = quantity * price;
     const product = productsRepository.create({
       name,
       price,

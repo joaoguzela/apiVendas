@@ -19,6 +19,7 @@ class Product {
 
   @Column()
   quantity: number;
+
   @Column()
   total: number;
 
