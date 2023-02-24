@@ -4,6 +4,7 @@ import UpdateProductService from '../services/UpdateProductService';
 import ListProductService from '../services/ListProductService';
 import ShowProductService from '../services/ShowProductService';
 import DeleteProductService from '../services/DeleteProductService';
+
 export default class ProductsController {
   public async create(
     request: Request,
