@@ -17,7 +17,7 @@ export default class CreateProductService {
     if (productExist) {
       throw new AppError('There is already one product with this name');
     }
-    let total = quantity * price;
+    const total = quantity * price;
     const product = productsRepository.create({
       name,
       price,

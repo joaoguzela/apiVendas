@@ -1,30 +1,38 @@
 import AppError from '@shared/errors/AppError';
-import { hash } from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
-
+import { sign } from 'jsonwebtoken';
+import authConfig from '@config/auth';
 interface IRequest {
-  name: string;
   email: string;
   password: string;
 }
-export default class CreateUserService {
-  public async execute({ name, email, password }: IRequest): Promise<User> {
+interface IResponse {
+  user: User;
+  token: string;
+}
+export default class CreateSessionService {
+  public async execute({ email, password }: IRequest): Promise<IResponse> {
     const usersRepository = getCustomRepository(UsersRepository);
-    const emailExist = await usersRepository.findByEmail(email);
+    const user = await usersRepository.findByEmail(email);
+    if (!user) {
+      throw new AppError('Incorrect email/password combination', 401);
+    }
 
-    if (emailExist) throw new AppError('Email address already used.');
+    const passwordConfirmed = await compare(password, user.password);
 
-    const hashedPassword = await hash(password, 8);
-    const user = usersRepository.create({
-      name,
-      email,
-      password: hashedPassword,
+    if (!passwordConfirmed) {
+      throw new AppError('Incorrect email/password ', 401);
+    }
+    const token = sign({}, authConfig.jwt.secret, {
+      subject: user.id,
+      expiresIn: authConfig.jwt.expiresIn,
     });
-
-    await usersRepository.save(user);
-
-    return user;
+    return {
+      user,
+      token,
+    };
   }
 }

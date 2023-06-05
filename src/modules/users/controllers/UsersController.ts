@@ -9,6 +9,7 @@ export default class UsersController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
+      console.log(request.user.id);
       const listUser = new ListUserService();
       const users = await listUser.execute();
       return response.json(users);
