@@ -1,5 +1,5 @@
 import AppError from '@shared/errors/AppError';
-import { compare, hash } from 'bcryptjs';
+import { compare } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
@@ -22,7 +22,6 @@ export default class CreateSessionService {
     }
 
     const passwordConfirmed = await compare(password, user.password);
-
     if (!passwordConfirmed) {
       throw new AppError('Incorrect email/password ', 401);
     }
@@ -30,6 +29,7 @@ export default class CreateSessionService {
       subject: user.id,
       expiresIn: authConfig.jwt.expiresIn,
     });
+
     return {
       user,
       token,

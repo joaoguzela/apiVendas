@@ -9,7 +9,6 @@ export default class UsersAvatarController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     const updateAvatar = new UpdateUserAvatarService();
-    console.log(request);
     if (!request.file?.filename) throw new AppError('File not found.');
 
     const user = updateAvatar.execute({

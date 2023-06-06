@@ -9,7 +9,6 @@ export default class SessionsController {
   ): Promise<Response | undefined> {
     try {
       const { email, password } = request.body;
-
       const createSession = new CreateSessionService();
       const user = await createSession.execute({ email, password });
 
