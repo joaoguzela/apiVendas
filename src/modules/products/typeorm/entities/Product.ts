@@ -20,9 +20,6 @@ class Product {
   @Column()
   quantity: number;
 
-  @Column()
-  total: number;
-
   @CreateDateColumn()
   created_at: Date;
 

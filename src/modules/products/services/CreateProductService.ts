@@ -22,7 +22,6 @@ export default class CreateProductService {
       name,
       price,
       quantity,
-      total,
     });
     await productsRepository.save(product);
     return product;

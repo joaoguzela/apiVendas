@@ -32,7 +32,6 @@ export default class UpdateProductService {
     productExist.name = name;
     productExist.price = price;
     productExist.quantity = quantity;
-    productExist.total = price * quantity;
 
     await productsRepository.save(productExist);
 
