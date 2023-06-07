@@ -28,7 +28,7 @@ productsRouter.get(
   postProducts.show,
 );
 
-productsRouter.post(
+productsRouter.put(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
