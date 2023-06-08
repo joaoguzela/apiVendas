@@ -13,12 +13,11 @@ export default class ProductsController {
   ): Promise<Response | undefined> {
     try {
       const createProduct = new CreateProductService();
-      const { name, price, quantity, total } = request.body;
+      const { name, price, quantity } = request.body;
       const product = await createProduct.execute({
         name,
         price,
         quantity,
-        total,
       });
       return response.json(product);
     } catch (err) {
