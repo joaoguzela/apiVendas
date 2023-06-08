@@ -1,4 +1,3 @@
-import ShowCustomerService from '@modules/customers/services/showCustomerService';
 import { NextFunction, Request, Response } from 'express';
 import CreateOrderService from '../services/CreateOrderService';
 import ShowOrderService from '../services/ShowOrderService';
@@ -7,7 +6,6 @@ export default class OrdersController {
   public async show(
     request: Request,
     response: Response,
-    next: NextFunction,
   ): Promise<Response | undefined> {
     const { id } = request.params;
     const showOrder = new ShowOrderService();

@@ -1,5 +1,4 @@
 import CustomersRepository from '@modules/customers/typeorm/repositories/CustomersRepository';
-import productsRouter from '@modules/products/routes/products.routes';
 import { ProductRepository } from '@modules/products/typeorm/repositories/ProductsRepository';
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
