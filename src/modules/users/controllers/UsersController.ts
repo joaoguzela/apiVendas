@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import CreateUserService from '../services/CreateUserService';
 import ListUserService from '../services/ListUserService';
+import { instanceToInstance } from 'class-transformer';
 
 export default class UsersController {
   public async index(
@@ -11,7 +12,7 @@ export default class UsersController {
     try {
       const listUser = new ListUserService();
       const users = await listUser.execute();
-      return response.json(users);
+      return response.json(instanceToInstance(users));
     } catch (err) {
       next(err);
     }
@@ -28,7 +29,7 @@ export default class UsersController {
 
       const user = await createUser.execute({ name, email, password });
 
-      return response.json(user);
+      return response.json(instanceToInstance(user));
     } catch (err) {
       next(err);
     }

@@ -1,3 +1,4 @@
+import { instanceToInstance } from 'class-transformer';
 import { NextFunction, Request, Response } from 'express';
 import CreateSessionService from '../services/CreateSessionsService';
 
@@ -12,7 +13,7 @@ export default class SessionsController {
       const createSession = new CreateSessionService();
       const user = await createSession.execute({ email, password });
 
-      return response.json(user);
+      return response.json(instanceToInstance(user));
     } catch (err) {
       next(err);
     }
