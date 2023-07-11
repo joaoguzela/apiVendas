@@ -1,0 +1,10 @@
+Dominio: Camada de conhecimento (Modulos).
+Infraestrutura: Ferramentas e recursos.
+
+SOLID
+
+1- Single-responsibility principle: Unica responsabilidade por classe
+2- Open-closed principle: A medida que so sofware vai evoluindo, não podemos adicionar mais uma responsabilidade a uma classe existente (devemos extender uma classe).
+3- Liskov substitutions principle: Substituir classe base por classes filhas.
+4- Interface segregation principle: Muitas interfaces específicas são melhores que uma unica interface.
+5- Dependecy inversion principle: Inversão de dependencia, uma classe depender de uma abstração e não de uma implementação.
