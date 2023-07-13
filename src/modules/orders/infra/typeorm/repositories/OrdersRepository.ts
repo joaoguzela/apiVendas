@@ -18,7 +18,7 @@ export class OrdersRepository implements IOrdersRepository {
   constructor() {
     this.ormRepository = getRepository(Order);
   }
-  public async findById(id: string): Promise<Order | null> {
+  public async findById(id: string): Promise<Order | undefined> {
     const order = this.ormRepository.findOne({
       where: { id },
       relations: ['order_products', 'customer'],

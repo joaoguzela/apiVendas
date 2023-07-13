@@ -8,13 +8,10 @@ interface IRequest {
 }
 @injectable()
 export default class DeleteProductService {
-  private productsRepository: IProductRepository;
   constructor(
     @inject('ProductRepository')
-    productRepository: IProductRepository,
-  ) {
-    this.productsRepository = productRepository;
-  }
+    private productsRepository: IProductRepository,
+  ) {}
   public async execute({ id }: IRequest): Promise<void> {
     const redisCache = new RedisCache();
 

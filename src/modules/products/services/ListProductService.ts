@@ -8,14 +8,10 @@ import { IProductRepository } from '../domain/repositories/IProductsRepository';
 import { IProduct } from '../domain/models/IProduct';
 @injectable()
 export default class ListProductService {
-  private productsRepository: IProductRepository;
-
   constructor(
     @inject('ProductRepository')
-    productRepository: IProductRepository,
-  ) {
-    this.productsRepository = productRepository;
-  }
+    private productsRepository: IProductRepository,
+  ) {}
   public async execute(): Promise<IProduct[] | null> {
     const redisCache = new RedisCache();
 

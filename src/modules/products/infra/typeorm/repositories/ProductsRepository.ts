@@ -37,9 +37,9 @@ export class ProductRepository implements IProductRepository {
 
     return createProduct;
   }
-  public async findOne(product_id: string): Promise<IProduct | undefined> {
+  public async findOne(id: string): Promise<IProduct | undefined> {
     const product = this.ormProductRepository.findOne({
-      where: { product_id },
+      where: { id },
     });
     return product;
   }

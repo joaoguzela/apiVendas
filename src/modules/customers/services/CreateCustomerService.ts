@@ -6,10 +6,9 @@ import { ICustomerRepository } from '../domain/repositories/ICustomersRepository
 
 @injectable()
 export default class CreateCustomerService {
-  private customerRepository: ICustomerRepository;
   constructor(
     @inject('CustomersRepository')
-    customerRepository: ICustomerRepository,
+    private customerRepository: ICustomerRepository,
   ) {
     this.customerRepository = customerRepository;
   }

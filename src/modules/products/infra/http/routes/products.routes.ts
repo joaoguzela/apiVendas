@@ -38,16 +38,11 @@ productsRouter.put(
   postProducts.update,
 );
 
-productsRouter.put(
+productsRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
-    },
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      price: Joi.number().precision(2),
-      quantity: Joi.number().required(),
     },
   }),
   postProducts.delete,

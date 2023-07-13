@@ -8,13 +8,16 @@ import { IProductRepository } from '@modules/products/domain/repositories/IProdu
 import { ProductRepository } from '@modules/products/infra/typeorm/repositories/ProductsRepository';
 
 container.registerSingleton<ICustomerRepository>(
-  'customersRepository',
+  'CustomersRepository',
   CustomersRepository,
 );
 
-container.registerSingleton<IOrdersRepository>(
-  'ordersRepository',
-  OrdersRepository,
+container.registerSingleton<IProductRepository>(
+  'ProductRepository',
+  ProductRepository,
 );
 
-container.register<IProductRepository>('productsRepository', ProductRepository);
+container.registerSingleton<IOrdersRepository>(
+  'OrdersRepository',
+  OrdersRepository,
+);

@@ -4,6 +4,7 @@ import UpdateProductService from '@modules/products/services/UpdateProductServic
 import ListProductService from '@modules/products/services/ListProductService';
 import ShowProductService from '@modules/products/services/ShowProductService';
 import DeleteProductService from '@modules/products/services/DeleteProductService';
+import { container } from 'tsyringe';
 
 export default class ProductsController {
   public async create(
@@ -12,7 +13,7 @@ export default class ProductsController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const createProduct = new CreateProductService();
+      const createProduct = container.resolve(CreateProductService);
       const { name, price, quantity } = request.body;
       const product = await createProduct.execute({
         name,
@@ -31,7 +32,7 @@ export default class ProductsController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const updateProduct = new UpdateProductService();
+      const updateProduct = container.resolve(UpdateProductService);
       const { name, price, quantity } = request.body;
       const { id } = request.params;
       const product = await updateProduct.execute({
@@ -51,8 +52,8 @@ export default class ProductsController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const ListProduct = new ListProductService();
-      const product = await ListProduct.execute();
+      const listProduct = container.resolve(ListProductService);
+      const product = await listProduct.execute();
       return response.json(product);
     } catch (err) {
       next(err);
@@ -64,12 +65,10 @@ export default class ProductsController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const showProduct = new ShowProductService();
+      const createProduct = container.resolve(ShowProductService);
       const { id } = request.params;
 
-      const product = await showProduct.execute({
-        id,
-      });
+      const product = await createProduct.execute({ id });
       return response.json(product);
     } catch (err) {
       next(err);
@@ -82,10 +81,10 @@ export default class ProductsController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const showProduct = new DeleteProductService();
+      const deleteProduct = container.resolve(DeleteProductService);
       const { id } = request.params;
 
-      const product = await showProduct.execute({
+      const product = await deleteProduct.execute({
         id,
       });
       return response.json(product);
