@@ -31,7 +31,7 @@ export default class CustomersController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const updateCustomer = new UpdateCustomerService();
+      const createCustomer = container.resolve(CreateCustomerService);
       const { name, email } = request.body;
       const { id } = request.params;
       const customer = await updateCustomer.execute({
@@ -50,7 +50,7 @@ export default class CustomersController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const ListCustomers = new ListCustomerService();
+      const ListCustomers = container.resolve(ListCustomerService);
       const customers = await ListCustomers.execute();
       return response.json(customers);
     } catch (err) {
@@ -63,7 +63,7 @@ export default class CustomersController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const showCustomer = new ShowCustomerService();
+      const showCustomer = container.resolve(ShowCustomerService);
       const { id } = request.params;
 
       const customer = await showCustomer.execute({

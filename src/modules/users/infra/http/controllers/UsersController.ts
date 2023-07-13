@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import ListUserService from '@modules/users/services/ListUserService';
 import { instanceToInstance } from 'class-transformer';
+import { container } from 'tsyringe';
 
 export default class UsersController {
   public async index(
@@ -10,7 +11,7 @@ export default class UsersController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     try {
-      const listUser = new ListUserService();
+      const listUser = container.resolve(ListUserService);
       const users = await listUser.execute();
       return response.json(instanceToInstance(users));
     } catch (err) {
@@ -25,7 +26,7 @@ export default class UsersController {
   ): Promise<Response | undefined> {
     try {
       const { name, email, password } = request.body;
-      const createUser = new CreateUserService();
+      const createUser = container.resolve(CreateUserService);
 
       const user = await createUser.execute({ name, email, password });
 

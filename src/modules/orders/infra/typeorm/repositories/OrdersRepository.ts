@@ -1,18 +1,8 @@
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import { ICreateOrder } from '@modules/orders/domain/models/ICreateOrder';
-import { IOrder } from '@modules/orders/domain/models/IOrder';
 import { IOrdersRepository } from '@modules/orders/domain/repositories/IOrdersRepository';
 import { getRepository, Repository } from 'typeorm';
 import Order from '../entities/Order';
-interface IProduct {
-  product_id: string;
-  price: number;
-  quantity: number;
-}
-interface IRequest {
-  customer: Customer;
-  products: IProduct[];
-}
+
 export class OrdersRepository implements IOrdersRepository {
   private ormRepository: Repository<Order>;
   constructor() {

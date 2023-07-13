@@ -4,6 +4,7 @@ import { IUpdateProduct } from '@modules/products/domain/models/IUpdateProduct';
 import { getRepository, In, Repository } from 'typeorm';
 import Product from '../entities/Product';
 import { ICreateProduct } from '@modules/products/domain/models/ICreateProduct';
+import { IUpdateStockProduct } from '@modules/products/domain/models/IUpdateStockProduct';
 interface IFindProducts {
   id: string;
 }
@@ -13,7 +14,7 @@ export class ProductRepository implements IProductRepository {
   constructor() {
     this.ormProductRepository = getRepository(Product);
   }
-  public async findByName(name: string): Promise<IProduct | undefined> {
+  public async findByName(name: string): Promise<Product | undefined> {
     const product = this.ormProductRepository.findOne({
       where: {
         name,
@@ -30,32 +31,31 @@ export class ProductRepository implements IProductRepository {
 
     return existsProducts;
   }
-  public async create(product: ICreateProduct): Promise<IProduct> {
+  public async create(product: ICreateProduct): Promise<Product> {
     const createProduct = this.ormProductRepository.create(product);
 
     this.ormProductRepository.save(createProduct);
 
     return createProduct;
   }
-  public async findOne(id: string): Promise<IProduct | undefined> {
+  public async findOne(id: string): Promise<Product | undefined> {
     const product = this.ormProductRepository.findOne({
       where: { id },
     });
     return product;
   }
-  public async save(product: IUpdateProduct): Promise<IProduct> {
+  public async save(product: IUpdateProduct): Promise<Product> {
     const updateProduct = this.ormProductRepository.save(product);
     return updateProduct;
   }
-  public async remove(product: IProduct): Promise<IProduct> {
-    const deleteProduct = product as Product;
-
-    const updateProduct = this.ormProductRepository.remove(deleteProduct);
-
-    return updateProduct;
+  public async remove(id: string): Promise<void> {
+    this.ormProductRepository.delete(id);
   }
-  public async find(): Promise<IProduct[] | null> {
+  public async find(): Promise<Product[] | null> {
     const ProductList = this.ormProductRepository.find();
     return ProductList;
+  }
+  public async updateStock(products: IUpdateStockProduct[]): Promise<void> {
+    await this.ormProductRepository.save(products);
   }
 }

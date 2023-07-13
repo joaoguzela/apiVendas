@@ -21,7 +21,7 @@ export default class OrdersController {
   ): Promise<Response | undefined> {
     try {
       const { customer_id, products } = request.body;
-      const createOrder = new CreateOrderService();
+      const createOrder = container.resolve(CreateOrderService);
 
       const order = await createOrder.execute({ customer_id, products });
 

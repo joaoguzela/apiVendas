@@ -2,15 +2,17 @@ import Product from '@modules/products/infra/typeorm/entities/Product';
 import { ICreateProduct } from '../models/ICreateProduct';
 import { IProduct } from '../models/IProduct';
 import { IUpdateProduct } from '../models/IUpdateProduct';
+import { IUpdateStockProduct } from '../models/IUpdateStockProduct';
 interface IFindProducts {
   id: string;
 }
 export interface IProductRepository {
-  findByName(name: string): Promise<IProduct | undefined>;
-  findAllByIds(products: IFindProducts[]): Promise<IProduct[]>;
-  create(product: ICreateProduct): Promise<IProduct>;
-  findOne(product_id: string): Promise<IProduct | undefined>;
-  save(product: IUpdateProduct): Promise<IProduct | undefined>;
-  remove(product: IProduct): Promise<IProduct | undefined>;
-  find(): Promise<IProduct[] | null>;
+  findByName(name: string): Promise<Product | undefined>;
+  findAllByIds(products: IFindProducts[]): Promise<Product[]>;
+  create(product: ICreateProduct): Promise<Product>;
+  findOne(product_id: string): Promise<Product | undefined>;
+  save(product: IUpdateProduct): Promise<Product | undefined>;
+  remove(id: string): Promise<void>;
+  find(): Promise<Product[] | null>;
+  updateStock(products: IUpdateStockProduct[]): Promise<void>;
 }

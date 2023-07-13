@@ -20,6 +20,6 @@ export default class DeleteProductService {
       throw new AppError('Product not found');
     }
     await redisCache.invalidate('api-vendas-PRODUCT_LIST');
-    await this.productsRepository.remove(product);
+    await this.productsRepository.remove(product.id);
   }
 }
